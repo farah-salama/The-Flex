@@ -1,5 +1,7 @@
 import { useState } from 'react'
+import DatePicker from 'react-datepicker'
 import { Icons } from './Icons'
+import 'react-datepicker/dist/react-datepicker.css'
 
 const ReviewFilters = ({ filters, onFilterChange }) => {
   const [isExpanded, setIsExpanded] = useState(false)
@@ -40,17 +42,25 @@ const ReviewFilters = ({ filters, onFilterChange }) => {
           {hasActiveFilters && (
             <button
               onClick={clearFilters}
-              className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+              className="clear-filters-btn"
             >
-              Clear All
+              <span className="clear-filters-icon">
+                <Icons.x />
+              </span>
+              <span className="clear-filters-text">Clear All</span>
             </button>
           )}
           
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="text-sm text-gray-600 hover:text-gray-700 font-medium"
+            className="advanced-toggle-btn"
           >
-            {isExpanded ? 'Hide' : 'Show'} Advanced
+            <span className="advanced-toggle-icon">
+              {isExpanded ? <Icons.chevronUp /> : <Icons.chevronDown />}
+            </span>
+            <span className="advanced-toggle-text">
+              {isExpanded ? 'Hide' : 'Show'} Advanced
+            </span>
           </button>
         </div>
       </div>
@@ -58,13 +68,12 @@ const ReviewFilters = ({ filters, onFilterChange }) => {
       {/* Basic Filters */}
       <div className="grid filters-grid-4 gap-4 mb-4">
         <div className="form-group">
-          <label className="form-label">Rating</label>
           <select
             value={filters.rating}
             onChange={(e) => handleFilterChange('rating', e.target.value)}
             className="form-select"
           >
-            <option value="">All Ratings</option>
+            <option className="dropdown-option" value="">All Ratings</option>
             <option value="5">5 Stars</option>
             <option value="4">4+ Stars</option>
             <option value="3">3+ Stars</option>
@@ -74,7 +83,6 @@ const ReviewFilters = ({ filters, onFilterChange }) => {
         </div>
 
         <div className="form-group">
-          <label className="form-label">Category</label>
           <select
             value={filters.category}
             onChange={(e) => handleFilterChange('category', e.target.value)}
@@ -93,7 +101,6 @@ const ReviewFilters = ({ filters, onFilterChange }) => {
         </div>
 
         <div className="form-group">
-          <label className="form-label">Status</label>
           <select
             value={filters.status}
             onChange={(e) => handleFilterChange('status', e.target.value)}
@@ -107,7 +114,6 @@ const ReviewFilters = ({ filters, onFilterChange }) => {
         </div>
 
         <div className="form-group">
-          <label className="form-label">Sort By</label>
           <select
             value={filters.sortBy}
             onChange={(e) => handleFilterChange('sortBy', e.target.value)}
@@ -126,9 +132,8 @@ const ReviewFilters = ({ filters, onFilterChange }) => {
         <div className="border-t border-gray-200 pt-4 space-y-4">
           <div className="grid filters-grid-3 gap-4">
             <div className="form-group">
-              <label className="form-label">Property Search</label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                <span className="absolute left-3 top-3 icon-opacity-60">
                   <Icons.search />
                 </span>
                 <input
@@ -142,31 +147,29 @@ const ReviewFilters = ({ filters, onFilterChange }) => {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Start Date</label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2">
-                  <Icons.calendar />
-                </span>
-                <input
-                  type="date"
-                  value={filters.startDate}
-                  onChange={(e) => handleFilterChange('startDate', e.target.value)}
-                  className="form-input pl-10"
+              <div className="date-input">
+                <span className="input-icon"><Icons.calendar /></span>
+                <DatePicker
+                  selected={filters.startDate ? new Date(filters.startDate) : null}
+                  onChange={(date) => handleFilterChange('startDate', date ? date.toISOString().split('T')[0] : '')}
+                  placeholderText="From"
+                  className="form-input"
+                  dateFormat="dd/MM/yyyy"
+                  maxDate={filters.endDate ? new Date(filters.endDate) : null}
                 />
               </div>
             </div>
 
             <div className="form-group">
-              <label className="form-label">End Date</label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2">
-                  <Icons.calendar />
-                </span>
-                <input
-                  type="date"
-                  value={filters.endDate}
-                  onChange={(e) => handleFilterChange('endDate', e.target.value)}
-                  className="form-input pl-10"
+              <div className="date-input">
+                <span className="input-icon"><Icons.calendar /></span>
+                <DatePicker
+                  selected={filters.endDate ? new Date(filters.endDate) : null}
+                  onChange={(date) => handleFilterChange('endDate', date ? date.toISOString().split('T')[0] : '')}
+                  placeholderText="To"
+                  className="form-input"
+                  dateFormat="dd/MM/yyyy"
+                  minDate={filters.startDate ? new Date(filters.startDate) : null}
                 />
               </div>
             </div>

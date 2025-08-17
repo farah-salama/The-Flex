@@ -1,3 +1,21 @@
+/*
+ * Flex Living CSS - Consolidated Stylesheet
+ * 
+ * Structure:
+ * 1. Reset & Base Styles
+ * 2. Header & Navigation
+ * 3. Main Content & Layout
+ * 4. Components (Cards, Buttons, Forms)
+ * 5. Utilities (Grid, Flexbox, Spacing, Typography)
+ * 6. Property Details Page
+ * 7. Dashboard Components
+ * 8. Date Picker Styles
+ * 9. Advanced Components (Toggle Buttons, Filters)
+ * 10. Animations & Hover Effects
+ * 11. Icon System
+ * 12. Responsive Design
+ */
+
 /* Reset and base styles - Updated for flex design consistency */
 * {
   margin: 0;
@@ -204,21 +222,21 @@ body {
 }
 
 .btn-success {
-  background: #22c55e;
+  background: #059669;
   color: white;
 }
 
 .btn-success:hover {
-  background: #16a34a;
+  background: #047857;
 }
 
 .btn-danger {
-  background: #ef4444;
+  background: #dc2626;
   color: white;
 }
 
 .btn-danger:hover {
-  background: #dc2626;
+  background: #b91c1c;
 }
 
 .btn:disabled {
@@ -231,15 +249,7 @@ body {
   margin-bottom: 24px;
 }
 
-.form-label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: #1f2937;
-  font-size: 16px;
-}
-
-.form-input,
+/* .form-input,
 .form-select {
   width: 100%;
   padding: 16px 20px;
@@ -247,14 +257,16 @@ body {
   border-radius: 12px;
   font-size: 16px;
   transition: all 0.3s ease;
-}
+  background: #fffdf6;
+  color: #1f2937;
+} */
 
-.form-input:focus,
+/* .form-input:focus,
 .form-select:focus {
   outline: none;
   border-color: #284e4c;
   box-shadow: 0 0 0 4px rgba(40, 78, 76, 0.15);
-}
+} */
 
 /* Grid */
 .grid {
@@ -333,6 +345,10 @@ body {
   left: 0.75rem;
 }
 
+.top-3 {
+  top: 0.75rem;
+}
+
 .transform {
   transform: translateY(-50%);
 }
@@ -365,19 +381,19 @@ body {
 }
 
 .status-pending {
-  color: #d97706;
+  color: #a16207;
   background: #fef3c7;
-  border-color: #fbbf24;
+  border-color: #f59e0b;
 }
 
 .status-approved {
   color: #284e4c;
   background: #dcfce7;
-  border-color: #4ade80;
+  border-color: #22c55e;
 }
 
 .status-rejected {
-  color: #dc2626;
+  color: #b91c1c;
   background: #fee2e2;
   border-color: #f87171;
 }
@@ -837,6 +853,16 @@ body {
   gap: 32px;
 }
 
+.linkToProperty {
+  color: #284e4c;
+  text-decoration: none;
+}
+
+
+.linkToProperty:hover {
+  color: #132c2a;
+}
+
 .info-card {
   background: white;
   border-radius: 16px;
@@ -1121,13 +1147,6 @@ body {
   margin-bottom: 0;
 }
 
-.form-label {
-  color: white;
-  margin-bottom: 8px;
-  font-size: 14px;
-  font-weight: 600;
-}
-
 .date-input,
 .guest-input {
   position: relative;
@@ -1146,10 +1165,10 @@ body {
 .form-select {
   width: 100%;
   padding: 16px 16px 16px 48px;
-  border: none;
+  border: 2px solid #e5e7eb;
   border-radius: 12px;
   font-size: 16px;
-  background: white;
+  background: #fffdf6;
   color: #1f2937;
 }
 
@@ -1160,7 +1179,7 @@ body {
 }
 
 .check-availability-btn {
-  background: #22c55e;
+  background: #059669;
   color: white;
   border: none;
   padding: 16px 24px;
@@ -1176,7 +1195,7 @@ body {
 }
 
 .check-availability-btn:hover {
-  background: #16a34a;
+  background: #047857;
 }
 
 .send-inquiry-btn {
@@ -1285,29 +1304,39 @@ body {
   }
 }
 
-/* Stat card colors */
-.stat-blue {
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+/* Stat card colors - Modern muted palette */
+.stat-gray {
+  /* background: linear-gradient(135deg, #64748b 0%, #475569 100%); */
+  background: #64748b;
   color: white;
-  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 8px 32px rgba(100, 116, 139, 0.2);
 }
 
 .stat-green {
-  background: linear-gradient(135deg, #284e4c 0%, #1a3a38 100%);
+  /* background: linear-gradient(135deg, #284e4c 0%, #1e3a38 100%); */
+  background: #284e4c;
   color: white;
-  box-shadow: 0 8px 32px rgba(40, 78, 76, 0.3);
+  box-shadow: 0 8px 32px rgba(40, 78, 76, 0.2);
+}
+
+.stat-light-green {
+  background: #05935d;
+  color: white;
+  box-shadow: 0 8px 32px rgba(40, 78, 76, 0.2);
 }
 
 .stat-yellow {
-  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  /* background: linear-gradient(135deg, #a16207 0%, #854d0e 100%); */
+  background: #efd139;
   color: white;
-  box-shadow: 0 8px 32px rgba(217, 119, 6, 0.3);
+  box-shadow: 0 8px 32px rgba(161, 98, 7, 0.2);
 }
 
 .stat-red {
-  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  /* background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%); */
+  background: #b91c1c;
   color: white;
-  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.3);
+  box-shadow: 0 8px 32px rgba(185, 28, 28, 0.2);
 }
 
 /* Enhanced stat cards */
@@ -1323,7 +1352,6 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
   transform: translateX(-100%);
   transition: transform 0.6s ease;
 }
@@ -1427,8 +1455,26 @@ body {
 }
 
 .react-datepicker__day--keyboard-selected {
-  background: #22c55e;
+  background: #059669;
   color: white;
+}
+
+/* Dashboard Date Picker Specific Styles */
+.dashboard-container .react-datepicker__input-container input {
+  background: #fffdf6;
+  border: 2px solid #e5e7eb;
+  color: #1f2937;
+  transition: all 0.3s ease;
+}
+
+.dashboard-container .react-datepicker__input-container input:focus {
+  outline: none;
+  border-color: #284e4c;
+  box-shadow: 0 0 0 4px rgba(40, 78, 76, 0.15);
+}
+
+.dashboard-container .react-datepicker__input-container input:hover {
+  border-color: #d1d5db;
 }
 
 /* Enhanced hover effects */
@@ -1472,6 +1518,78 @@ html {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Advanced Toggle Button */
+.advanced-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.advanced-toggle-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #334155;
+}
+
+.advanced-toggle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.advanced-toggle-text {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+/* Clear Filters Button */
+.clear-filters-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  color: #b91c1c;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.clear-filters-btn:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+
+.clear-filters-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.clear-filters-text {
+  font-weight: 600;
+  letter-spacing: -0.025em;
 }
 
 /* Enhanced amenities grid */
@@ -1576,8 +1694,9 @@ html {
   color: #6b7280;
 }
 
-.form-input,
-.form-select {
+/* Enhanced form inputs with icons */
+.form-input-with-icon,
+.form-select-with-icon {
   width: 100%;
   padding: 16px 16px 16px 48px;
   border: none;
@@ -1588,20 +1707,20 @@ html {
   transition: all 0.2s ease;
 }
 
-.form-input:focus,
-.form-select:focus {
+.form-input-with-icon:focus,
+.form-select-with-icon:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
 }
 
-.form-select {
+/* .form-select {
   cursor: pointer;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
   background-position: right 12px center;
   background-repeat: no-repeat;
   background-size: 16px;
   padding-right: 40px;
-}
+} */
 
 /* Ensure consistent styling for all select elements */
 select.form-select {
@@ -1683,7 +1802,7 @@ select::-ms-expand {
 
 /* Dashboard specific styles */
 .dashboard-container {
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 0 24px;
 }
@@ -1802,7 +1921,7 @@ select::-ms-expand {
   opacity: 0;
 } 
 
-/* SVG Icon Styles */
+/* Consolidated Icon Styles */
 .amenity-icon svg,
 .stat-icon svg,
 .input-icon svg,
@@ -1832,33 +1951,10 @@ select::-ms-expand {
   color: white;
 }
 
-/* Enhanced star ratings */
-.star {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  color: #d1d5db;
-  transition: all 0.2s ease;
-}
+/* Icon Opacity Utilities */
+.icon-opacity-60 { opacity: 0.6; }
 
-.star.filled {
-  color: #fbbf24;
-}
-
-.star.empty {
-  color: #d1d5db;
-}
-
-/* Logo icon styling */
-.logo-icon svg {
-  color: white;
-  width: 24px;
-  height: 24px;
-} 
-
-/* Admin Dashboard Icon Styles */
+/* Icon Sizing */
 .card .text-4xl svg {
   width: 48px;
   height: 48px;
@@ -1880,33 +1976,45 @@ select::-ms-expand {
   height: 20px;
 }
 
-.flex.items-center.gap-1 svg {
-  width: 20px;
-  height: 20px;
-  color: #6b7280;
-}
-
+.flex.items-center.gap-1 svg,
 .flex.items-center.gap-2 svg {
   width: 20px;
   height: 20px;
   color: #6b7280;
 }
 
-/* Ensure consistent icon colors in stat cards */
-.stat-blue svg {
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.stat-green svg {
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.stat-yellow svg {
-  color: rgba(255, 255, 255, 0.9);
-}
-
+/* Stat card icon colors */
+.stat-blue svg,
+.stat-green svg,
+.stat-yellow svg,
 .stat-red svg {
   color: rgba(255, 255, 255, 0.9);
+}
+
+/* Logo icon styling */
+.logo-icon svg {
+  color: white;
+  width: 24px;
+  height: 24px;
+}
+
+/* Enhanced star ratings */
+.star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: #d1d5db;
+  transition: all 0.2s ease;
+}
+
+.star.filled {
+  color: #fbbf24;
+}
+
+.star.empty {
+  color: #d1d5db;
 } 
 
 /* Enhanced dropdown styling for admin dashboard */
@@ -1934,123 +2042,7 @@ select::-ms-expand {
   display: none;
 } 
 
-/* Dashboard specific styles */
-.dashboard-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
+.dropdown-option:hover {
+  background-color: #284e4c;
+  color: #fff;
 }
-
-.dashboard-header {
-  margin-bottom: 32px;
-}
-
-.dashboard-stats {
-  margin-bottom: 40px;
-}
-
-.dashboard-filters {
-  margin-bottom: 32px;
-}
-
-.dashboard-reviews {
-  margin-bottom: 32px;
-}
-
-.dashboard-pagination {
-  margin-top: 40px;
-  padding-top: 24px;
-  border-top: 1px solid #e5e7eb;
-} 
-
-/* CSS Animations to replace framer-motion */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInNoMove {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
-}
-
-.animate-scale-in {
-  animation: scaleIn 0.8s ease-out forwards;
-}
-
-.animate-slide-up {
-  animation: slideInUp 0.6s ease-out forwards;
-}
-
-/* Hover effects */
-.hover-lift {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.hover-scale {
-  transition: transform 0.2s ease;
-}
-
-.hover-scale:hover {
-  transform: scale(1.02);
-}
-
-.hover-scale:active {
-  transform: scale(0.98);
-}
-
-/* Staggered animations for lists */
-.amenity-item.animate-fade-in {
-  animation: fadeInNoMove 0.4s ease-out forwards;
-}
-
-.review-item.animate-fade-in {
-  animation: fadeIn 0.5s ease-out forwards;
-}
-
-/* WhatsApp float animation */
-.whatsapp-float.animate-scale-in {
-  animation: scaleIn 1s ease-out 1s forwards;
-  opacity: 0;
-} 

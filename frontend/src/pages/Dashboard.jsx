@@ -79,7 +79,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="container">
+    <div className="container dashboard-container">
       <div className="space-y-8">
         {/* Page Header */}
         <div className="flex justify-between items-center">

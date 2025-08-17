@@ -37,7 +37,7 @@ const ReviewStats = ({ reviews }) => {
       title: 'Total Reviews',
       value: stats.total,
       icon: Icons.chart,
-      color: 'stat-blue'
+      color: 'stat-gray'
     },
     {
       title: 'Average Rating',
@@ -49,13 +49,13 @@ const ReviewStats = ({ reviews }) => {
       title: 'Pending Review',
       value: stats.pending,
       icon: Icons.clock,
-      color: 'stat-yellow'
+      color: 'stat-gray'
     },
     {
       title: 'Approved',
       value: stats.approved,
       icon: Icons.check,
-      color: 'stat-green'
+      color: 'stat-light-green'
     },
     {
       title: 'Rejected',

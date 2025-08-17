@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Icons } from './Icons'
 
 const ReviewCard = ({ review, onApprove, onReject, onReset }) => {
@@ -169,7 +170,12 @@ const ReviewCard = ({ review, onApprove, onReject, onReset }) => {
           
           <div className="flex items-center gap-1">
             <Icons.location />
-            <span>{review.listingName}</span>
+            <Link 
+              to={`/property/${review.propertyId}`}
+              className="font-semibold linkToProperty"
+            >
+              {review.listingName}
+            </Link>
           </div>
           
           <div className="flex items-center gap-1">

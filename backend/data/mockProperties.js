@@ -94,12 +94,14 @@ const mockProperties = [
       latitude: 51.5054,
     },
     images: [
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/23248-169459-5Fwxnx9rvFzhq4blIxfDX7SmkKGyA7QO4Q59d9kK--2I-6537dcb3d3566",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/23248-169459-JU7f9W--4j7pav0XwD9hW-xosOU-MNdgDqpgHSCvyVDQ-6537dcbd6e55d",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/23248-169459-i9cuVnbKQ--R7MZS9-z6kOySdJLwGj54yqEUJvWWweKI-6537dce7a0c86",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/23248-169459-ElRfkj2KlJOzA--hJwWp9-fXApFSLwHFG2----TijGxv9A-6537dcbf8af8b",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/23248-169459-AG0juvpicngiNfB0--rWgYKSYGwk250D-R8ujfTEeqs4-6537dcc3c301a",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/23248-169459--lkfAiRs5OmhnalPDqd8JLfUJEqf7ZQBWH0vsfwVlM8-6537dccd39820",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/23248-169459-PuWpUJ1Nov7tCZFRI0LSUCpvRhQSnjtgMqgzdm2wsPI-6537dcd219f5f",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/23248-169459-vtUEiq1gcIjARBc7vlwoXp--aQR5FDEkrfwEkHe-OAUw-6537dcd9d610b",
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/23248-169459-VtO9TSx3UiHau5PdDrEuo0p-BpwlVarDzeH-bGx6DLY-6537dce53a039",
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/23248-169459-fEs1jfxYdiaPCWs-2mnVnTI--Yj5sxbQ1LMW0yWJTfD8-6537dcc614509",
-      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/23248-169459-ElRfkj2KlJOzA--hJwWp9-fXApFSLwHFG2----TijGxv9A-6537dcbf8af8b"
+      "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/23248-169459-5yzeattz-6CbpMwCyN27LC2Eb--MFlr97jFyiUB4kKvY-6537dcd496ea8"
     ]
   },
   {
