@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer'
 import DatePicker from 'react-datepicker'
 import { fetchReviews, fetchPropertyById } from '../services/api'
+import PropertyMap from '../components/PropertyMap'
 import 'react-datepicker/dist/react-datepicker.css'
 
 // Simple SVG Icons
@@ -498,6 +499,24 @@ const PropertyDetails = () => {
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Location Map */}
+          <div 
+            className={`info-card ${amenitiesInView ? 'animate-fade-in' : ''}`}
+          >
+            <h2 className="card-title">Location</h2>
+            
+            {property.location.latitude && property.location.longitude && (
+              <>
+                <PropertyMap 
+                  latitude={property.location.latitude}
+                  longitude={property.location.longitude}
+                  address={property.location.address}
+                  listingName={property.listingName}
+                />
+              </>
+            )}
           </div>
 
           {/* Reviews Section */}
