@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer'
 import DatePicker from 'react-datepicker'
-import { fetchReviews } from '../services/api'
+import { fetchReviews, fetchPropertyById } from '../services/api'
 import 'react-datepicker/dist/react-datepicker.css'
 
 // Simple SVG Icons
@@ -162,12 +162,17 @@ const Icons = {
 
 const PropertyDetails = () => {
   const { id } = useParams()
+  const [property, setProperty] = useState(null)
   const [approvedReviews, setApprovedReviews] = useState([])
   const [loading, setLoading] = useState(true)
+  const [propertyLoading, setPropertyLoading] = useState(true)
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
   const [guestCount, setGuestCount] = useState(1)
   const [showAmenities, setShowAmenities] = useState(false)
+  const [readMore, setReadMore] = useState(false)
+  const [showImageModal, setShowImageModal] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   // Intersection observer hooks for animations
   const [headerRef, headerInView] = useInView({ threshold: 0.1, triggerOnce: true })
@@ -176,13 +181,31 @@ const PropertyDetails = () => {
   const [bookingRef, bookingInView] = useInView({ threshold: 0.1, triggerOnce: true })
 
   useEffect(() => {
-    loadApprovedReviews()
+    loadProperty()
   }, [id])
+
+  useEffect(() => {
+    if (property) {
+      loadApprovedReviews()
+    }
+  }, [property])
+
+  const loadProperty = async () => {
+    try {
+      setPropertyLoading(true)
+      const response = await fetchPropertyById(id)
+      setProperty(response.data)
+    } catch (error) {
+      console.error('Error loading property:', error)
+    } finally {
+      setPropertyLoading(false)
+    }
+  }
 
   const loadApprovedReviews = async () => {
     try {
       setLoading(true)
-      const response = await fetchReviews({ status: 'approved', listing: '2B N1 A - 29 Shoreditch Heights' })
+      const response = await fetchReviews({ status: 'approved', listing: property?.listingName || '2B N1 A - 29 Shoreditch Heights' })
       setApprovedReviews(response.data)
     } catch (error) {
       console.error('Error loading approved reviews:', error)
@@ -238,27 +261,176 @@ const PropertyDetails = () => {
     setShowAmenities(!showAmenities)
   }
 
-  const amenities = [
-    { icon: Icons.tv, text: 'Cable TV' },
-    { icon: Icons.wifi, text: 'Internet' },
-    { icon: Icons.signal, text: 'Wireless' },
-    { icon: Icons.kitchen, text: 'Kitchen' },
-    { icon: Icons.washing, text: 'Washing Machine' },
-    { icon: Icons.elevator, text: 'Elevator' },
-    { icon: Icons.parking, text: 'Free Parking' },
-    { icon: Icons.pool, text: 'Swimming Pool' },
-    { icon: Icons.gym, text: 'Gym' },
-    { icon: Icons.restaurant, text: 'Restaurant' }
-  ]
+  const toggleReadMore = () => {
+    setReadMore(!readMore)
+  }
+
+  const openImageModal = () => {
+    setShowImageModal(true)
+    setCurrentImageIndex(0)
+  }
+
+  const closeImageModal = () => {
+    setShowImageModal(false)
+  }
+
+  const nextImage = () => {
+    if (property?.images && currentImageIndex < property.images.length - 1) {
+      setCurrentImageIndex(currentImageIndex + 1)
+    }
+  }
+
+  const previousImage = () => {
+    if (currentImageIndex > 0) {
+      setCurrentImageIndex(currentImageIndex - 1)
+    }
+  }
+
+  const selectImage = (index) => {
+    setCurrentImageIndex(index)
+  }
+
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!showImageModal) return
+      
+      switch (e.key) {
+        case 'Escape':
+          closeImageModal()
+          break
+        case 'ArrowRight':
+          nextImage()
+          break
+        case 'ArrowLeft':
+          previousImage()
+          break
+        default:
+          break
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [showImageModal, currentImageIndex, property?.images])
+
+  // Map property amenities to icon components
+  const getAmenityIcon = (amenityName) => {
+    const iconMap = {
+      'Internet': Icons.wifi,
+      'Smart TV': Icons.tv,
+      'Kitchen': Icons.kitchen,
+      'Washing Machine': Icons.washing,
+      'Heating': Icons.signal,
+      'Gym': Icons.gym,
+      'Hair Dryer': Icons.user
+    }
+    return iconMap[amenityName] || Icons.home
+  }
+
+  const amenities = property?.amenities?.map(amenity => ({
+    icon: getAmenityIcon(amenity),
+    text: amenity
+  })) || []
+
+  // Show loading state while property is being fetched
+  if (propertyLoading) {
+    return (
+      <div className="property-details">
+        <div className="loading-container">
+          <div className="spinner"></div>
+          <p>Loading property details...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Show error state if property not found
+  if (!property) {
+    return (
+      <div className="property-details">
+        <div className="error-container">
+          <h1>Property Not Found</h1>
+          <p>The property you're looking for doesn't exist or has been removed.</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="property-details">
+      {/* Property Images Section */}
+      <div className="property-images-section">
+        <div className="images-grid">
+          <div className="main-image">
+            <img 
+              src={property.images?.[0] || '/logo.png'} 
+              alt="Main property view"
+              className="main-image-img"
+              onError={(e) => {
+                e.target.src = '/logo.png'
+              }}
+            />
+          </div>
+          <div className="secondary-images">
+            <div className="secondary-image">
+              <img 
+                src={property.images?.[1] || '/logo.png'} 
+                alt="Property view 1"
+                className="secondary-image-img"
+                onError={(e) => {
+                  e.target.src = '/logo.png'
+                }}
+              />
+            </div>
+            <div className="secondary-image">
+              <img 
+                src={property.images?.[2] || '/logo.png'} 
+                alt="Property view 2"
+                className="secondary-image-img"
+                onError={(e) => {
+                  e.target.src = '/logo.png'
+                }}
+              />
+            </div>
+            <div className="secondary-image">
+              <img 
+                src={property.images?.[3] || '/logo.png'} 
+                alt="Property view 3"
+                className="secondary-image-img"
+                onError={(e) => {
+                  e.target.src = '/logo.png'
+                }}
+              />
+            </div>
+            <div className="secondary-image">
+              <img 
+                src={property.images?.[4] || '/logo.png'} 
+                alt="Property view 4"
+                className="secondary-image-img"
+                onError={(e) => {
+                  e.target.src = '/logo.png'
+                }}
+              />
+            </div>
+          </div>
+        </div>
+        <button className="view-all-photos-btn" onClick={openImageModal}>
+          <span>View all photos</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M15 3h6v6"/>
+            <path d="M10 14L21 3"/>
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          </svg>
+        </button>
+      </div>
+
       {/* Property Header */}
       <div 
         className={`property-header ${headerInView ? 'animate-fade-in' : ''}`}
         ref={headerRef}
       >
-        <h1 className="property-title">Stylish 2 Bed Flat near Stratford Station</h1>
+        <h1 className="property-title">{property.listingName}</h1>
         <div 
           className={`property-stats ${headerInView ? 'animate-fade-in' : ''}`}
         >
@@ -289,14 +461,13 @@ const PropertyDetails = () => {
           >
             <h2 className="card-title">About this property</h2>
             <p className="property-description">
-              This bright and spacious 2-bedroom apartment is located in the heart of Stratford, 
-              just minutes away from Stratford Station. The property features modern amenities, 
-              high ceilings, and plenty of natural light. Perfect for both short and long-term stays, 
-              this apartment offers comfort and convenience in one of London's most vibrant areas.
+              {readMore ? property.about : property.about.length > 200 ? `${property.about.substring(0, 200)}...` : property.about}
             </p>
-            <button className="read-more-btn">
-              Read more
-            </button>
+            {property.about.length > 200 && (
+              <button className="read-more-btn" onClick={toggleReadMore}>
+                {readMore ? 'Show less' : 'Read more'}
+              </button>
+            )}
           </div>
 
           {/* Amenities */}
@@ -321,7 +492,6 @@ const PropertyDetails = () => {
                 <div 
                   key={index}
                   className={`amenity-item animate-fade-in`}
-                  style={{ animationDelay: `${index * 0.05}s` }}
                 >
                   <span className="amenity-icon">{amenity.icon()}</span>
                   <span className="amenity-text">{amenity.text}</span>
@@ -497,6 +667,78 @@ const PropertyDetails = () => {
       <div className="whatsapp-float animate-scale-in hover-scale">
         <Icons.whatsapp />
       </div>
+
+      {/* Image Viewer Modal */}
+      {showImageModal && (
+        <div className="image-modal-overlay" onClick={closeImageModal}>
+          <div className="image-modal-content" onClick={(e) => e.stopPropagation()}>
+            {/* Close Button */}
+            <button className="modal-close-btn" onClick={closeImageModal}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M18 6L6 18M6 6l12 12"/>
+              </svg>
+            </button>
+
+            {/* Image Counter */}
+            <div className="image-counter">
+              {currentImageIndex + 1}/{property?.images?.length || 0}
+            </div>
+
+            {/* Main Image */}
+            <div className="modal-main-image">
+              <img 
+                src={property?.images?.[currentImageIndex] || '/logo.png'} 
+                alt={`Property image ${currentImageIndex + 1}`}
+                className="modal-image"
+                onError={(e) => {
+                  e.target.src = '/logo.png'
+                }}
+              />
+            </div>
+
+            {/* Navigation Arrows */}
+            {currentImageIndex > 0 && (
+              <button className="nav-arrow nav-arrow-left" onClick={previousImage}>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M15 18l-6-6 6-6"/>
+                </svg>
+              </button>
+            )}
+            
+            {property?.images && currentImageIndex < property.images.length - 1 && (
+              <button className="nav-arrow nav-arrow-right" onClick={nextImage}>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M9 18l6-6-6-6"/>
+                </svg>
+              </button>
+            )}
+
+            {/* Thumbnail Gallery */}
+            {property?.images && property.images.length > 1 && (
+              <div className="thumbnail-gallery">
+                <div className="thumbnails-container">
+                  {property.images.map((image, index) => (
+                    <div 
+                      key={index}
+                      className={`thumbnail ${index === currentImageIndex ? 'active' : ''}`}
+                      onClick={() => selectImage(index)}
+                    >
+                      <img 
+                        src={image} 
+                        alt={`Thumbnail ${index + 1}`}
+                        className="thumbnail-image"
+                        onError={(e) => {
+                          e.target.src = '/logo.png'
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

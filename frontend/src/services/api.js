@@ -45,4 +45,16 @@ export const resetReview = async (reviewId) => {
   return response.data
 }
 
+// Fetch property by ID
+export const fetchPropertyById = async (propertyId) => {
+  const response = await api.get(`/properties/${propertyId}`)
+  return response.data
+}
+
+// Fetch all properties
+export const fetchProperties = async () => {
+  const response = await api.get('/properties')
+  return response.data
+}
+
 export default api 

@@ -11,6 +11,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/reviews', require('./routes/reviews'));
+app.use('/api/properties', require('./routes/properties'));
 
 // Health check endpoint
 app.get('/health', (req, res) => {
