@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import DatePicker from 'react-datepicker'
 import { fetchReviews } from '../services/api'
@@ -194,15 +193,13 @@ const PropertyDetails = () => {
 
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, i) => (
-      <motion.span
+      <span
         key={i}
-        className={`star ${i < rating ? 'filled' : 'empty'}`}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        // transition={{ delay: i * 0.1 }}
+        className={`star ${i < rating ? 'filled' : 'empty'} animate-fade-in`}
+        style={{ animationDelay: `${i * 0.1}s` }}
       >
         <Icons.star />
-      </motion.span>
+      </span>
     ))
   }
 
@@ -257,53 +254,38 @@ const PropertyDetails = () => {
   return (
     <div className="property-details">
       {/* Property Header */}
-      <motion.div 
-        className="property-header"
+      <div 
+        className={`property-header ${headerInView ? 'animate-fade-in' : ''}`}
         ref={headerRef}
-        initial={{ opacity: 0 }}
-        animate={headerInView ? { opacity: 1 } : {}}
-        // transition={{ duration: 0.6 }}
       >
         <h1 className="property-title">Stylish 2 Bed Flat near Stratford Station</h1>
-        <motion.div 
-          className="property-stats"
-          initial={{ opacity: 0 }}
-          animate={headerInView ? { opacity: 1 } : {}}
+        <div 
+          className={`property-stats ${headerInView ? 'animate-fade-in' : ''}`}
         >
-          <motion.div 
-            className="stat-item"
-          >
+          <div className="stat-item">
             <span className="stat-icon"><Icons.users /></span>
             <span className="stat-text">5 guests</span>
-          </motion.div>
-          <motion.div 
-            className="stat-item"
-          >
+          </div>
+          <div className="stat-item">
             <span className="stat-icon"><Icons.bed /></span>
             <span className="stat-text">2 bedrooms</span>
-          </motion.div>
-          <motion.div 
-            className="stat-item"
-          >
+          </div>
+          <div className="stat-item">
             <span className="stat-icon"><Icons.bathroom /></span>
             <span className="stat-text">1 bathrooms</span>
-          </motion.div>
-          <motion.div 
-            className="stat-item"
-          >
+          </div>
+          <div className="stat-item">
             <span className="stat-icon"><Icons.home /></span>
             <span className="stat-text">3 beds</span>
-          </motion.div>
-        </motion.div>
-      </motion.div>
+          </div>
+        </div>
+      </div>
 
       <div className="property-content">
         <div className="property-main">
           {/* About this property */}
-          <motion.div 
-            className="info-card"
-            initial={{ opacity: 0 }}
-            animate={headerInView ? { opacity: 1 } : {}}
+          <div 
+            className={`info-card ${headerInView ? 'animate-fade-in' : ''}`}
           >
             <h2 className="card-title">About this property</h2>
             <p className="property-description">
@@ -312,72 +294,59 @@ const PropertyDetails = () => {
               high ceilings, and plenty of natural light. Perfect for both short and long-term stays, 
               this apartment offers comfort and convenience in one of London's most vibrant areas.
             </p>
-            <motion.button 
-              className="read-more-btn"
-            >
+            <button className="read-more-btn">
               Read more
-            </motion.button>
-          </motion.div>
+            </button>
+          </div>
 
           {/* Amenities */}
-          <motion.div 
-            className="info-card"
+          <div 
+            className={`info-card ${amenitiesInView ? 'animate-fade-in' : ''}`}
             ref={amenitiesRef}
-            initial={{ opacity: 0 }}
-            animate={amenitiesInView ? { opacity: 1} : {}}
-            // transition={{ duration: 0.6, delay: 0.4 }}
           >
             <div className="amenities-header">
               <h2 className="card-title">Amenities</h2>
               {amenities.length > 6 && (
-                <motion.button 
+                <button 
                   className="view-all-btn"
                   onClick={toggleAmenities}
                 >
                   {showAmenities ? 'Hide amenities <' : 'View all amenities >'}
-                </motion.button>
+                </button>
               )}
             </div>
             
             <div className="amenities-grid">
               {(showAmenities ? amenities : amenities.slice(0, 6)).map((amenity, index) => (
-                <motion.div 
+                <div 
                   key={index}
-                  className="amenity-item"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  // transition={{ delay: index * 0.05 }}
+                  className={`amenity-item animate-fade-in`}
+                  style={{ animationDelay: `${index * 0.05}s` }}
                 >
                   <span className="amenity-icon">{amenity.icon()}</span>
                   <span className="amenity-text">{amenity.text}</span>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Reviews Section */}
-          <motion.div 
-            className="info-card"
+          <div 
+            className={`info-card ${reviewsInView ? 'animate-fade-in' : ''}`}
             ref={reviewsRef}
-            initial={{ opacity: 0 }}
-            animate={reviewsInView ? { opacity: 1 } : {}}
-            // transition={{ duration: 0.6, delay: 0.5 }}
           >
             <div className="reviews-header">
               <h2 className="card-title">Guest Reviews</h2>
               <div className="rating-summary">
-                <motion.div 
-                  className="average-rating"
-                  initial={{ opacity: 0 }}
-                  animate={reviewsInView ? { opacity: 1 } : {}}
-                  // transition={{ delay: 0.7}}
+                <div 
+                  className={`average-rating ${reviewsInView ? 'animate-fade-in' : ''}`}
                 >
                   <span className="rating-number">{averageRating}</span>
                   <div className="rating-stars">
                     {renderStars(averageRating)}
                   </div>
                   <span className="review-count">({approvedReviews.length} reviews)</span>
-                </motion.div>
+                </div>
               </div>
             </div>
 
@@ -391,69 +360,56 @@ const PropertyDetails = () => {
               </div>
             ) : (
               <div className="reviews-list">
-                <AnimatePresence>
-                  {approvedReviews.map((review, index) => (
-                    <motion.div 
-                      key={review.id} 
-                      className="review-item"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      // transition={{ delay: index * 0.1 }}
-                    >
-                      <div className="review-header">
-                        <div className="reviewer-info">
-                          <motion.div 
-                            className="reviewer-avatar"
-                          >
-                            <Icons.user />
-                          </motion.div>
-                          <div className="reviewer-details">
-                            <h4 className="reviewer-name">{review.guestName}</h4>
-                            <div className="review-rating">
-                              {renderStars(review.rating)}
-                              <span className="rating-text">{review.rating}/5</span>
-                            </div>
+                {approvedReviews.map((review, index) => (
+                  <div 
+                    key={review.id} 
+                    className={`review-item animate-fade-in`}
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className="review-header">
+                      <div className="reviewer-info">
+                        <div className="reviewer-avatar">
+                          <Icons.user />
+                        </div>
+                        <div className="reviewer-details">
+                          <h4 className="reviewer-name">{review.guestName}</h4>
+                          <div className="review-rating">
+                            {renderStars(review.rating)}
+                            <span className="rating-text">{review.rating}/5</span>
                           </div>
                         </div>
-                        <div className="review-date">
-                          <Icons.clock />
-                          <span>{formatDate(review.submittedAt)}</span>
-                        </div>
                       </div>
-
-                      <p className="review-text">{review.publicReview}</p>
-
-                      <div className="review-categories">
-                        {review.reviewCategory.map((category, index) => (
-                          <motion.span
-                            key={index}
-                            className="category-tag"
-                          >
-                            {category.category.replace('_', ' ')}: {category.rating}/10
-                          </motion.span>
-                        ))}
+                      <div className="review-date">
+                        <Icons.clock />
+                        <span>{formatDate(review.submittedAt)}</span>
                       </div>
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
+                    </div>
+
+                    <p className="review-text">{review.publicReview}</p>
+
+                    <div className="review-categories">
+                      {review.reviewCategory.map((category, index) => (
+                        <span
+                          key={index}
+                          className="category-tag"
+                        >
+                          {category.category.replace('_', ' ')}: {category.rating}/10
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
-          </motion.div>
+          </div>
         </div>
 
         {/* Booking Section */}
-        <motion.div 
-          className="property-sidebar"
+        <div 
+          className={`property-sidebar ${bookingInView ? 'animate-fade-in' : ''}`}
           ref={bookingRef}
-          initial={{ opacity: 0}}
-          animate={bookingInView ? { opacity: 1} : {}}
-          // transition={{ duration: 0.6, delay: 0.6 }}
         >
-          <motion.div 
-            className="booking-card"
-            whileHover={{ y: -1 }}
-            // transition={{ type: "spring", stiffness: 300 }}
-          >
+          <div className="booking-card hover-lift">
             <h2 className="booking-title">Book your stay</h2>
             <p className="booking-subtitle">Select dates to see the total price.</p>
             
@@ -512,46 +468,35 @@ const PropertyDetails = () => {
                 </div>
               </div>
 
-              <motion.button 
-                className="check-availability-btn"
+              <button 
+                className="check-availability-btn hover-scale"
                 onClick={handleCheckAvailability}
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
               >
                 <span className="btn-icon"><Icons.calendar /></span>
                 Check availability
-              </motion.button>
+              </button>
 
-              <motion.button 
-                className="send-inquiry-btn"
+              <button 
+                className="send-inquiry-btn hover-scale"
                 onClick={handleSendInquiry}
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
               >
                 <span className="btn-icon"><Icons.message /></span>
                 Send Inquiry
-              </motion.button>
+              </button>
 
               <div className="instant-confirmation">
                 <span className="info-icon"><Icons.info /></span>
                 <span>Instant confirmation</span>
               </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
 
       {/* Floating WhatsApp Button */}
-      <motion.div 
-        className="whatsapp-float"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        // transition={{ delay: 1, type: "spring", stiffness: 200 }}
-      >
+      <div className="whatsapp-float animate-scale-in hover-scale">
         <Icons.whatsapp />
-      </motion.div>
+      </div>
     </div>
   )
 }
