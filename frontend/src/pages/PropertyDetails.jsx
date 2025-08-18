@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer'
 import DatePicker from 'react-datepicker'
 import { fetchReviews, fetchPropertyById } from '../services/api'
 import PropertyMap from '../components/PropertyMap'
+import BookingCard from '../components/BookingCard'
 import 'react-datepicker/dist/react-datepicker.css'
 
 // Simple SVG Icons
@@ -158,6 +159,38 @@ const Icons = {
       <circle cx="12" cy="12" r="10"/>
       <polyline points="12,6 12,12 16,14"/>
     </svg>
+  ),
+  shield: () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </svg>
+  ),
+  noSmoking: () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="4.93" y1="19.07" x2="19.07" y2="4.93"/>
+      <path d="M16 12c0-2.21-1.79-4-4-4s-4 1.79-4 4"/>
+    </svg>
+  ),
+  paw: () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M4.5 9.5c.83-1.5 2.92-1.5 3.75 0 .83 1.5 2.92 1.5 3.75 0 .83-1.5 2.92-1.5 3.75 0 .83-1.5 2.92-1.5 3.75 0"/>
+      <path d="M4.5 9.5c.83-1.5 2.92-1.5 3.75 0 .83 1.5 2.92 1.5 3.75 0 .83-1.5 2.92-1.5 3.75 0"/>
+      <path d="M4.5 9.5c.83-1.5 2.92-1.5 3.75 0 .83 1.5 2.92 1.5 3.75 0 .83-1.5 2.92-1.5 3.75 0"/>
+      <path d="M4.5 9.5c.83-1.5 2.92-1.5 3.75 0 .83 1.5 2.92 1.5 3.75 0 .83-1.5 2.92-1.5 3.75 0"/>
+    </svg>
+  ),
+  party: () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+    </svg>
+  ),
+  lock: () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+      <circle cx="12" cy="16" r="1"/>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    </svg>
   )
 }
 
@@ -219,8 +252,7 @@ const PropertyDetails = () => {
     return Array.from({ length: 5 }, (_, i) => (
       <span
         key={i}
-        className={`star ${i < rating ? 'filled' : 'empty'} animate-fade-in`}
-        style={{ animationDelay: `${i * 0.1}s` }}
+        className={`star ${i < rating ? 'filled' : 'empty'}`}
       >
         <Icons.star />
       </span>
@@ -492,12 +524,87 @@ const PropertyDetails = () => {
               {(showAmenities ? amenities : amenities.slice(0, 6)).map((amenity, index) => (
                 <div 
                   key={index}
-                  className={`amenity-item animate-fade-in`}
+                  className={`amenity-item ${amenitiesInView ? 'animate-fade-in' : ''}`}
                 >
                   <span className="amenity-icon">{amenity.icon()}</span>
                   <span className="amenity-text">{amenity.text}</span>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Stay Policies */}
+          <div 
+            className={`info-card ${amenitiesInView ? 'animate-fade-in' : ''}`}
+          >
+            <h2 className="card-title">Stay Policies</h2>
+            
+            {/* Check-in & Check-out */}
+            <div className="policy-section">
+              <div className="policy-section-header">
+                <span className="policy-section-icon"><Icons.clock /></span>
+                <h3 className="policy-section-title">Check-in & Check-out</h3>
+              </div>
+              <div className="check-times">
+                <div className="time-box">
+                  <span className="time-label">Check-in time</span>
+                  <span className="time-value">{property.stayPolicies?.checkIn || '3:00 PM'}</span>
+                </div>
+                <div className="time-box">
+                  <span className="time-label">Check-out time</span>
+                  <span className="time-value">{property.stayPolicies?.checkOut || '10:00 AM'}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* House Rules */}
+            <div className="policy-section">
+              <div className="policy-section-header">
+                <span className="policy-section-icon"><Icons.shield /></span>
+                <h3 className="policy-section-title">House Rules</h3>
+              </div>
+              <div className="house-rules-grid">
+                {property.houseRules?.map((rule, index) => {
+                  let icon = Icons.shield;
+                  if (rule.toLowerCase().includes('smoking')) icon = Icons.noSmoking;
+                  else if (rule.toLowerCase().includes('pet')) icon = Icons.paw;
+                  else if (rule.toLowerCase().includes('party') || rule.toLowerCase().includes('event')) icon = Icons.party;
+                  else if (rule.toLowerCase().includes('deposit') || rule.toLowerCase().includes('security')) icon = Icons.lock;
+                  
+                  return (
+                    <div key={index} className="rule-item">
+                      <span className="rule-icon">{icon()}</span>
+                      <span className="rule-text">{rule}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Cancellation Policy */}
+            <div className="policy-section">
+              <div className="policy-section-header">
+                <span className="policy-section-icon"><Icons.calendar /></span>
+                <h3 className="policy-section-title">Cancellation Policy</h3>
+              </div>
+              <div className="cancellation-policies">
+                <div className="policy-group">
+                  <h4 className="policy-group-title">For stays less than 28 days:</h4>
+                  <ul className="policy-list">
+                    {property.cancellationPolicy?.staysLessThan28Days?.map((policy, index) => (
+                      <li key={index} className="policy-list-item">{policy}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="policy-group">
+                  <h4 className="policy-group-title">For stays of 28 days or more:</h4>
+                  <ul className="policy-list">
+                    {property.cancellationPolicy?.staysMoreThan28Days?.map((policy, index) => (
+                      <li key={index} className="policy-list-item">{policy}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -552,7 +659,7 @@ const PropertyDetails = () => {
                 {approvedReviews.map((review, index) => (
                   <div 
                     key={review.id} 
-                    className={`review-item animate-fade-in`}
+                    className={`review-item ${reviewsInView ? 'animate-fade-in' : ''}`}
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <div className="review-header">
@@ -598,87 +705,7 @@ const PropertyDetails = () => {
           className={`property-sidebar ${bookingInView ? 'animate-fade-in' : ''}`}
           ref={bookingRef}
         >
-          <div className="booking-card hover-lift">
-            <h2 className="booking-title">Book your stay</h2>
-            <p className="booking-subtitle">Select dates to see the total price.</p>
-            
-            <div className="booking-form">
-              <div className="form-group">
-                <label className="form-label">Select dates</label>
-                <div className="date-input">
-                  <span className="input-icon"><Icons.calendar /></span>
-                  <DatePicker
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
-                    selectsStart
-                    startDate={startDate}
-                    endDate={endDate}
-                    placeholderText="Check-in date"
-                    className="form-input"
-                    dateFormat="MMM dd, yyyy"
-                    minDate={new Date()}
-                  />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label className="form-label">Check-out date</label>
-                <div className="date-input">
-                  <span className="input-icon"><Icons.calendar /></span>
-                  <DatePicker
-                    selected={endDate}
-                    onChange={(date) => setEndDate(date)}
-                    selectsEnd
-                    startDate={startDate}
-                    endDate={endDate}
-                    minDate={startDate}
-                    placeholderText="Check-out date"
-                    className="form-input"
-                    dateFormat="MMM dd, yyyy"
-                  />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label className="form-label">Guests</label>
-                <div className="guest-input">
-                  <span className="input-icon"><Icons.user /></span>
-                  <select 
-                    className="form-select"
-                    value={guestCount}
-                    onChange={(e) => setGuestCount(parseInt(e.target.value))}
-                  >
-                    <option value="1">1 guest</option>
-                    <option value="2">2 guests</option>
-                    <option value="3">3 guests</option>
-                    <option value="4">4 guests</option>
-                    <option value="5">5 guests</option>
-                  </select>
-                </div>
-              </div>
-
-              <button 
-                className="check-availability-btn hover-scale"
-                onClick={handleCheckAvailability}
-              >
-                <span className="btn-icon"><Icons.calendar /></span>
-                Check availability
-              </button>
-
-              <button 
-                className="send-inquiry-btn hover-scale"
-                onClick={handleSendInquiry}
-              >
-                <span className="btn-icon"><Icons.message /></span>
-                Send Inquiry
-              </button>
-
-              <div className="instant-confirmation">
-                <span className="info-icon"><Icons.info /></span>
-                <span>Instant confirmation</span>
-              </div>
-            </div>
-          </div>
+          <BookingCard />
         </div>
       </div>
 

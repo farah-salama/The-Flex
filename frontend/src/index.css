@@ -31,7 +31,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #fffdf6;
   color: #1f2937;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.6;
 }
 
@@ -120,7 +120,7 @@ body {
   border-radius: 6px;
   transition: color 0.3s ease;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
   background: none;
   border: none;
 }
@@ -131,7 +131,7 @@ body {
 }
 
 .dropdown-arrow {
-  font-size: 12px;
+  font-size: 14px;
   color: #6b7280;
   transition: color 0.3s ease;
 }
@@ -142,7 +142,7 @@ body {
   background: none;
   border-radius: 8px;
   color: #374151;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 18px;
   cursor: pointer;
   transition: color 0.3s ease;
@@ -199,7 +199,7 @@ body {
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-size: 16px;
+  font-size: 18px;
   letter-spacing: -0.025em;
 }
 
@@ -248,25 +248,6 @@ body {
 .form-group {
   margin-bottom: 24px;
 }
-
-/* .form-input,
-.form-select {
-  width: 100%;
-  padding: 16px 20px;
-  border: 2px solid #e5e7eb;
-  border-radius: 12px;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  background: #fffdf6;
-  color: #1f2937;
-} */
-
-/* .form-input:focus,
-.form-select:focus {
-  outline: none;
-  border-color: #284e4c;
-  box-shadow: 0 0 0 4px rgba(40, 78, 76, 0.15);
-} */
 
 /* Grid */
 .grid {
@@ -538,7 +519,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
   color: #1f2937;
   cursor: pointer;
@@ -812,6 +793,34 @@ body {
   .property-details {
     padding: 0 16px;
   }
+  
+  .policy-section {
+    padding: 16px;
+    margin-bottom: 24px;
+  }
+  
+  .check-times {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .time-box {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .house-rules-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .rule-item {
+    padding: 12px;
+  }
+  
+  .policy-group {
+    padding: 16px;
+  }
 }
 
 .property-title {
@@ -842,7 +851,7 @@ body {
 
 .property-content {
   display: grid;
-  grid-template-columns: 1fr 400px;
+  grid-template-columns: 1fr 500px;
   gap: 40px;
   align-items: start;
 }
@@ -932,13 +941,7 @@ body {
   align-items: center;
   gap: 12px;
   padding: 16px;
-  background: #f9fafb;
-  border-radius: 12px;
   transition: all 0.2s ease;
-}
-
-.amenity-item:hover {
-  background: #f3f4f6;
 }
 
 .amenity-icon {
@@ -948,7 +951,143 @@ body {
 .amenity-text {
   font-weight: 500;
   color: #374151;
+  font-size: 20px;
+}
+
+/* Stay Policies Section */
+.policy-section {
+  margin-bottom: 32px;
+  padding: 24px;
+  background: #f1f3ee;
+  border-radius: 12px;
+}
+
+.policy-section:last-child {
+  margin-bottom: 0;
+}
+
+.policy-section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.policy-section-icon {
+  font-size: 24px;
+  color: #284e4c;
+}
+
+.policy-section-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+/* Check-in & Check-out */
+.check-times {
+  display: flex;
+  gap: 26px;
+  flex-wrap: wrap;
+}
+
+.time-box {
+  background: white;
+  padding: 16px 40px;
+  border-radius: 14px;
+  min-width: 480px;
+}
+
+.time-label {
+  display: block;
+  font-size: 20px;
+  color: #6b7280;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.time-value {
+  display: block;
+  font-size: 24px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* House Rules */
+.house-rules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.rule-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: white;
+  border-radius: 14px;
+  transition: all 0.2s ease;
+}
+
+.rule-icon {
+  font-size: 24px;
+  color: #284e4c;
+}
+
+.rule-text {
+  font-weight: 500;
+  color: #374151;
+  font-size: 20px;
+}
+
+/* Cancellation Policy */
+.cancellation-policies {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.policy-group {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+}
+
+.policy-group-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 12px;
+}
+
+.policy-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.policy-list-item {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+  color: #6b7280;
   font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.policy-list-item:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #284e4c;
+  font-weight: bold;
+}
+
+.policy-list-item:last-child {
+  margin-bottom: 0;
 }
 
 /* Reviews Section */
@@ -1114,72 +1253,141 @@ body {
 /* Booking Section */
 .property-sidebar {
   position: sticky;
-  top: 24px;
+  top: 125px;
 }
 
+/* New Booking Card Design - Matching the Image */
 .booking-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.booking-card:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Dark Green Header */
+.booking-header {
   background: #284e4c;
   color: white;
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: 0 8px 32px rgba(40, 78, 76, 0.3);
+  padding: 24px;
+  text-align: left;
 }
 
 .booking-title {
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 8px;
+  color: white;
 }
 
 .booking-subtitle {
   color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 24px;
   font-size: 16px;
+  font-weight: 500;
+  margin: 0;
 }
 
-.booking-form {
+/* Input Fields Section */
+.booking-inputs {
+  padding: 20px;
+  background: white;
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  flex-direction: row;
+  gap: 26px;
 }
 
-.form-group {
-  margin-bottom: 0;
-}
-
-.date-input,
-.guest-input {
+.date-input-container,
+.guest-input-container {
   position: relative;
 }
 
-.input-icon {
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 18px;
-  z-index: 1;
-}
-
-.form-input,
-.form-select {
-  width: 100%;
-  padding: 16px 16px 16px 48px;
-  border: 2px solid #e5e7eb;
-  border-radius: 12px;
-  font-size: 16px;
+.date-picker-input,
+.guest-input {
+  position: relative;
   background: #fffdf6;
-  color: #1f2937;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 50px;
 }
 
-.form-input:focus,
-.form-select:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+.date-picker-input:hover,
+.guest-input:hover {
+  background: #ebebeb;
+}
+
+.input-icon {
+  color: #666;
+  display: flex;
+  align-items: center;
+}
+
+.date-picker-input::placeholder {
+  color: #999;
+}
+
+.guest-count {
+  font-size: 18px;
+  color: #333;
+  font-weight: 500;
+  margin-left: 50px;
+}
+
+.chevron-icon {
+  color: #666;
+  margin-left: auto;
+}
+
+/* Guest Dropdown */
+.guest-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+.guest-option {
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 18px;
+  color: #333;
+}
+
+.guest-option:hover {
+  background-color: #2F5C50;
+  color: white;
+}
+
+.guest-option:not(:last-child) {
+  border-bottom: 1px solid #F0F0F0;
+}
+
+/* Action Buttons */
+.booking-actions {
+  padding: 0 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .check-availability-btn {
-  background: #059669;
+  background: #284e4c;
   color: white;
   border: none;
   padding: 16px 24px;
@@ -1192,16 +1400,17 @@ body {
   justify-content: center;
   gap: 8px;
   transition: all 0.2s ease;
+  width: 100%;
 }
 
 .check-availability-btn:hover {
-  background: #047857;
+  background: #7A8F8A;
 }
 
 .send-inquiry-btn {
-  background: #fffdf6;
-  color: #284e4c;
-  border: none;
+  background: white;
+  color: #333;
+  border: 1px solid #bbb;
   padding: 16px 24px;
   border-radius: 12px;
   font-weight: 600;
@@ -1216,26 +1425,32 @@ body {
 }
 
 .send-inquiry-btn:hover {
-  background: #f5f2e8;
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  background: #F9FAFB;
+  border-color: #D1D5DB;
 }
 
 .btn-icon {
   font-size: 18px;
 }
 
-.instant-confirmation {
+/* Footer */
+.booking-footer {
+  padding: 16px 24px 24px;
+  text-align: center;
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.8);
   justify-content: center;
-  margin-top: 8px;
+  gap: 8px;
+  color: #666;
+  font-size: 14px;
 }
 
-.info-icon {
-  font-size: 16px;
+.footer-icon {
+  color: #666;
+}
+
+.footer-text {
+  color: #666;
 }
 
 /* Floating WhatsApp Button */
@@ -1270,10 +1485,6 @@ body {
   .property-content {
     grid-template-columns: 1fr;
     gap: 32px;
-  }
-  
-  .property-sidebar {
-    position: static;
   }
 }
 
@@ -1488,18 +1699,6 @@ body {
 }
 
 
-
-/* Enhanced button interactions */
-.check-availability-btn,
-.send-inquiry-btn {
-  transition: all 0.2s ease;
-}
-
-.check-availability-btn:hover,
-.send-inquiry-btn:hover {
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
-}
-
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
@@ -1605,10 +1804,7 @@ html {
   align-items: center;
   gap: 12px;
   padding: 16px;
-  background: #f9fafb;
-  border-radius: 12px;
   transition: all 0.3s ease;
-  border: 1px solid transparent;
 }
 
 
@@ -1734,50 +1930,6 @@ select::-ms-expand {
   display: none;
 } 
 
-/* Enhanced button styles */
-.check-availability-btn {
-  background: #22c55e;
-  color: white;
-  border: none;
-  padding: 16px 24px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: all 0.2s ease;
-  width: 100%;
-}
-
-.check-availability-btn:hover {
-  background: #16a34a;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-}
-
-.send-inquiry-btn {
-  background: white;
-  color: #284e4c;
-  border: none;
-  padding: 16px 24px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: all 0.2s ease;
-  width: 100%;
-}
-
-.send-inquiry-btn:hover {
-  background: #f9fafb;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-}
 
 .btn-icon {
   font-size: 18px;
@@ -1874,14 +2026,86 @@ select::-ms-expand {
 
 .animate-fade-in {
   animation: fadeIn 0.6s ease-out forwards;
+  animation-fill-mode: forwards;
+  will-change: opacity, transform;
 }
 
 .animate-scale-in {
   animation: scaleIn 0.8s ease-out forwards;
+  animation-fill-mode: forwards;
+  will-change: opacity, transform;
 }
 
 .animate-slide-up {
   animation: slideInUp 0.6s ease-out forwards;
+  animation-fill-mode: forwards;
+  will-change: opacity, transform;
+}
+
+/* Ensure elements that have been animated stay in their final state */
+.animate-fade-in,
+.animate-scale-in,
+.animate-slide-up {
+  /* Once animation completes, maintain final state */
+  animation-fill-mode: forwards;
+  /* Prevent animation from running again */
+  animation-iteration-count: 1;
+  /* Ensure smooth completion */
+  animation-timing-function: ease-out;
+}
+
+/* Additional safeguard: prevent any transform/opacity changes after animation */
+.animate-fade-in:not([style*="animation"]),
+.animate-scale-in:not([style*="animation"]),
+.animate-slide-up:not([style*="animation"]) {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Final rule: ensure elements stay in their final state permanently */
+.animate-fade-in,
+.animate-scale-in,
+.animate-slide-up {
+  /* Once animation completes, maintain final state permanently */
+  animation-fill-mode: forwards !important;
+  /* Prevent any future animations */
+  animation-iteration-count: 1 !important;
+  /* Ensure smooth completion */
+  animation-timing-function: ease-out !important;
+  /* Prevent animation from being interrupted or reset */
+  animation-play-state: running;
+}
+
+/* Override any potential browser or framework animation resets */
+.animate-fade-in:not([style*="animation"]),
+.animate-scale-in:not([style*="animation"]),
+.animate-slide-up:not([style*="animation"]) {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+/* Staggered animations for lists - ensure they only run once */
+.amenity-item.animate-fade-in {
+  animation: fadeInNoMove 0.4s ease-out forwards;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+}
+
+.review-item.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+}
+
+/* WhatsApp float animation - ensure it only runs once */
+.whatsapp-float.animate-scale-in {
+  animation: scaleIn 1s ease-out 1s forwards;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  opacity: 0;
 }
 
 /* Hover effects */
@@ -1904,21 +2128,6 @@ select::-ms-expand {
 
 .hover-scale:active {
   transform: scale(0.98);
-}
-
-/* Staggered animations for lists */
-.amenity-item.animate-fade-in {
-  animation: fadeInNoMove 0.4s ease-out forwards;
-}
-
-.review-item.animate-fade-in {
-  animation: fadeIn 0.5s ease-out forwards;
-}
-
-/* WhatsApp float animation */
-.whatsapp-float.animate-scale-in {
-  animation: scaleIn 1s ease-out 1s forwards;
-  opacity: 0;
 }
 
 /* Property Map Styles */
