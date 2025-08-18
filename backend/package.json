@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "heroku-postbuild": "cd ../frontend && npm ci --legacy-peer-deps && npm run build && mkdir -p ../backend/public && xcopy /E /I /Y build ..\\backend\\public\\ 2>nul || cp -r build/* ../backend/public/"
   },
   "dependencies": {
     "@googlemaps/google-maps-services-js": "^3.4.2",

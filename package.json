@@ -1,0 +1,12 @@
+{
+  "name": "the-flex",
+  "private": true,
+  "engines": {
+    "node": ">=16.x"
+  },
+  "scripts": {
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend --legacy-peer-deps && npm run build --prefix frontend && mkdir -p backend/public && cp -r frontend/build/* backend/public/ && npm install --prefix backend --production"
+  }
+}
+
+
