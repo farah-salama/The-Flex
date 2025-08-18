@@ -1,66 +1,108 @@
-# Flex Living Frontend
+# The Flex Frontend
 
-Simple React frontend for the Flex Living Reviews Dashboard.
+React app for the The Flex Reviews Dashboard. It provides a reviews management dashboard and property detail pages, talking to the backend via a development proxy. Optionally displays a Google Map on the property page when configured.
 
-## Setup
+## What this frontend does
+
+- Displays a filterable, paginated list of reviews with moderation actions (approve, reject, reset)
+- Shows aggregate review stats and supports advanced filters and sorting
+- Renders property detail pages with images, amenities, policies, location map, and approved reviews
+- Optionally shows Google Places reviews on the property page if present in the backend response
+
+## Quick start
 
 1. Install dependencies:
 ```bash
 npm install
 ```
 
-2. Start the development server:
+2. (Optional) Create a `.env` file in `frontend/` to enable the map on property pages:
+```
+REACT_APP_GOOGLE_MAPS_API_KEY=your_google_maps_browser_key
+```
+
+3. Start the app:
 ```bash
 npm start
 ```
 
-The frontend will run on `http://localhost:3000` and will proxy API calls to the backend at `http://localhost:5000`.
+The app runs at `http://localhost:3000` and proxies API calls to `http://localhost:5000` (configured in `package.json`). Start the backend first or in parallel.
 
-## Features
+## Scripts
+
+- `npm start` — Run the development server
+- `npm run build` — Build for production
+
+## Routes
+
+- `/` — Reviews Dashboard
+- `/property/:id` — Property details (e.g. `/property/prop_001`)
+
+## Key features
 
 ### Dashboard
-- View all reviews with filtering and sorting
-- Approve/reject/reset reviews with full control
-- View review statistics and metrics
-- Filter by rating, category, status, date range, and property
-- Sort by various criteria
-- Pagination support
+- Filter by rating, category, status, date range, and property name
+- Sort by date, rating, guest name, or property
+- Pagination with current/total indicators
+- Review moderation: approve, reject, reset (updates and reloads the list)
+- Stats summary across the visible reviews
 
-### Property Details
-- Property information display
-- Approved reviews only (as selected by managers)
-- Review ratings and categories
-- Guest information and dates
+### Property details
+- Images grid with modal viewer and thumbnails
+- About, amenities, stay policies, house rules, cancellation policies
+- Location map (Google Maps) when `REACT_APP_GOOGLE_MAPS_API_KEY` is set
+- Guest reviews section showing only approved reviews for that property
+- Optional Google Places reviews panel if backend enriched the property response
 
-## Components
+## Components (selected)
 
-- **Layout**: Main application layout with navigation
-- **Dashboard**: Main reviews management interface
-- **ReviewCard**: Individual review display with actions
-- **ReviewFilters**: Advanced filtering and sorting controls
-- **ReviewStats**: Statistics and metrics display
-- **PropertyDetails**: Property page with approved reviews
+- `Layout` — App shell with header/nav
+- `ReviewFilters` — Basic + advanced filters with date pickers
+- `ReviewCard` — Review display with moderation actions
+- `ReviewStats` — Review metrics summary
+- `PropertyMap` — Lazy loads Google Maps JS API using `REACT_APP_GOOGLE_MAPS_API_KEY`
+- `BookingCard` — UI-only booking widget on the property page
 
-## Tech Stack
+## API integration
 
-- React 18 with hooks
-- React Router for navigation
-- Custom CSS for styling (no heavy frameworks)
-- Axios for API communication
-- Create React App for build tooling
+Configured via a proxy to `http://localhost:5000` so the app calls relative paths under `/api`.
 
-## API Integration
+Used endpoints:
+- `GET /api/reviews` — List/filter/paginate reviews
+- `GET /api/reviews/hostaway` — Mock Hostaway reviews
+- `PUT /api/reviews/:id/approve` — Approve review
+- `PUT /api/reviews/:id/reject` — Reject review
+- `PUT /api/reviews/:id/reset` — Reset to pending
+- `GET /api/properties` — List properties
+- `GET /api/properties/:id` — Property details; may include `googlePlacesReviews` if backend has a valid `GOOGLE_MAPS_API_KEY`
 
-The frontend communicates with the backend API endpoints:
-- `GET /api/reviews` - Fetch filtered reviews
-- `GET /api/reviews/hostaway` - Fetch Hostaway reviews
-- `PUT /api/reviews/:id/approve` - Approve a review
-- `PUT /api/reviews/:id/reject` - Reject a review
-- `PUT /api/reviews/:id/reset` - Reset a review to pending
+## Environment variables
 
-## Design Philosophy
+- `REACT_APP_GOOGLE_MAPS_API_KEY` — Browser API key for Google Maps. Enables the map on `PropertyDetails` via `PropertyMap.jsx`.
+  - If unset or the API fails to load, a non-blocking fallback with coordinates and address is shown instead.
 
-- **Minimal Dependencies**: Only essential packages for faster development
-- **Simple Styling**: Custom CSS without framework overhead
-- **Clean Interface**: Focus on functionality over complexity
-- **Responsive Design**: Works on all device sizes 
+Note: Only variables prefixed with `REACT_APP_` are exposed to the browser build.
+
+## Data flow notes
+
+- The dashboard fetches reviews with the current filters and page; moderation actions trigger a reload.
+- The property page loads the property by `:id`, then requests approved reviews filtered by the property’s `listingName`.
+- Changes are not persisted across reloads because the backend serves in-memory mock data.
+
+## Tech stack
+
+- React 18, React Router v6
+- Axios for HTTP
+- Create React App (react-scripts)
+- Lightweight custom CSS in `src/index.css`
+
+## Known limitations
+
+- No authentication/authorization
+- All data is mock/in-memory; moderation state resets on backend restart
+- Google Maps requires a valid browser key and network access; otherwise the UI falls back gracefully
+
+## Local URLs
+
+- App: `http://localhost:3000`
+- Backend proxy target: `http://localhost:5000` (configured in `package.json`)

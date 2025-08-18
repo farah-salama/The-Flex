@@ -43,7 +43,6 @@ router.get('/:id', async (req, res) => {
           
           // Fetch Google Places reviews
           const googleReviewsData = await reviewsFetcher.fetchReviews(placeId);
-          console.log(googleReviewsData);
           // Add Google Places reviews to the property
           const propertyWithReviews = {
             ...property,

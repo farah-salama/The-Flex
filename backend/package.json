@@ -1,7 +1,7 @@
 {
   "name": "flex-living-backend",
   "version": "1.0.0",
-  "description": "Backend for Flex Living Reviews Dashboard",
+  "description": "Backend for The Flex Reviews Dashboard",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

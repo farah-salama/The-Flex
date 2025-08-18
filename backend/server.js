@@ -15,7 +15,7 @@ app.use('/api/properties', require('./routes/properties'));
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.json({ status: 'OK', message: 'Flex Living Backend is running' });
+  res.json({ status: 'OK', message: 'The Flex Backend is running' });
 });
 
 // Error handling middleware
