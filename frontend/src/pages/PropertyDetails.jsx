@@ -191,10 +191,24 @@ const Icons = {
       <circle cx="12" cy="16" r="1"/>
       <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
     </svg>
+  ),
+  google: () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+    </svg>
   )
 }
 
 const PropertyDetails = () => {
+  // Safety check for Icons object
+  if (!Icons || typeof Icons !== 'object') {
+    console.error('Icons object is not properly defined');
+    return <div>Error: Icons not loaded</div>;
+  }
+
   const { id } = useParams()
   const [property, setProperty] = useState(null)
   const [approvedReviews, setApprovedReviews] = useState([])
@@ -254,7 +268,7 @@ const PropertyDetails = () => {
         key={i}
         className={`star ${i < rating ? 'filled' : 'empty'}`}
       >
-        <Icons.star />
+        {Icons.star && <Icons.star />}
       </span>
     ))
   }
@@ -468,19 +482,19 @@ const PropertyDetails = () => {
           className={`property-stats ${headerInView ? 'animate-fade-in' : ''}`}
         >
           <div className="stat-item">
-            <span className="stat-icon"><Icons.users /></span>
+            <span className="stat-icon">{Icons.users && <Icons.users />}</span>
             <span className="stat-text">5 guests</span>
           </div>
           <div className="stat-item">
-            <span className="stat-icon"><Icons.bed /></span>
+            <span className="stat-icon">{Icons.bed && <Icons.bed />}</span>
             <span className="stat-text">2 bedrooms</span>
           </div>
           <div className="stat-item">
-            <span className="stat-icon"><Icons.bathroom /></span>
+            <span className="stat-icon">{Icons.bathroom && <Icons.bathroom />}</span>
             <span className="stat-text">1 bathrooms</span>
           </div>
           <div className="stat-item">
-            <span className="stat-icon"><Icons.home /></span>
+            <span className="stat-icon">{Icons.home && <Icons.home />}</span>
             <span className="stat-text">3 beds</span>
           </div>
         </div>
@@ -526,7 +540,7 @@ const PropertyDetails = () => {
                   key={index}
                   className={`amenity-item ${amenitiesInView ? 'animate-fade-in' : ''}`}
                 >
-                  <span className="amenity-icon">{amenity.icon()}</span>
+                  <span className="amenity-icon">{amenity.icon && amenity.icon()}</span>
                   <span className="amenity-text">{amenity.text}</span>
                 </div>
               ))}
@@ -542,7 +556,7 @@ const PropertyDetails = () => {
             {/* Check-in & Check-out */}
             <div className="policy-section">
               <div className="policy-section-header">
-                <span className="policy-section-icon"><Icons.clock /></span>
+                <span className="policy-section-icon">{Icons.clock && <Icons.clock />}</span>
                 <h3 className="policy-section-title">Check-in & Check-out</h3>
               </div>
               <div className="check-times">
@@ -560,7 +574,7 @@ const PropertyDetails = () => {
             {/* House Rules */}
             <div className="policy-section">
               <div className="policy-section-header">
-                <span className="policy-section-icon"><Icons.shield /></span>
+                <span className="policy-section-icon">{Icons.shield && <Icons.shield />}</span>
                 <h3 className="policy-section-title">House Rules</h3>
               </div>
               <div className="house-rules-grid">
@@ -573,7 +587,7 @@ const PropertyDetails = () => {
                   
                   return (
                     <div key={index} className="rule-item">
-                      <span className="rule-icon">{icon()}</span>
+                      <span className="rule-icon">{icon && icon()}</span>
                       <span className="rule-text">{rule}</span>
                     </div>
                   );
@@ -584,7 +598,7 @@ const PropertyDetails = () => {
             {/* Cancellation Policy */}
             <div className="policy-section">
               <div className="policy-section-header">
-                <span className="policy-section-icon"><Icons.calendar /></span>
+                <span className="policy-section-icon">{Icons.calendar && <Icons.calendar />}</span>
                 <h3 className="policy-section-title">Cancellation Policy</h3>
               </div>
               <div className="cancellation-policies">
@@ -665,7 +679,7 @@ const PropertyDetails = () => {
                     <div className="review-header">
                       <div className="reviewer-info">
                         <div className="reviewer-avatar">
-                          <Icons.user />
+                          {Icons.user && <Icons.user />}
                         </div>
                         <div className="reviewer-details">
                           <h4 className="reviewer-name">{review.guestName}</h4>
@@ -676,7 +690,7 @@ const PropertyDetails = () => {
                         </div>
                       </div>
                       <div className="review-date">
-                        <Icons.clock />
+                        {Icons.clock && <Icons.clock />}
                         <span>{formatDate(review.submittedAt)}</span>
                       </div>
                     </div>
@@ -698,6 +712,84 @@ const PropertyDetails = () => {
               </div>
             )}
           </div>
+
+          {/* Google Places Reviews Section */}
+          {property && property.googlePlacesReviews ? (
+            property.googlePlacesReviews.reviews && property.googlePlacesReviews.reviews.length > 0 ? (
+              <div className={`info-card ${reviewsInView ? 'animate-fade-in' : ''}`}>
+                <div className="reviews-header">
+                  <h2 className="card-title">Google Places Reviews</h2>
+                  <div className="rating-summary">
+                                      <div className="average-rating">
+                    <span className="rating-number">{property.googlePlacesReviews.averageRating || 0}</span>
+                    <div className="rating-stars">
+                      {renderStars(property.googlePlacesReviews.averageRating || 0)}
+                    </div>
+                    <span className="review-count">({property.googlePlacesReviews.totalReviews || 0} reviews)</span>
+                  </div>
+                  </div>
+                </div>
+
+                <div className="reviews-list">
+                  {(property.googlePlacesReviews.reviews || []).map((review, index) => (
+                                      <div 
+                    key={review.id || `google-review-${index}`} 
+                    className={`review-item google-review ${reviewsInView ? 'animate-fade-in' : ''}`}
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                      <div className="review-header">
+                        <div className="reviewer-info">
+                                                  <div className="reviewer-avatar google-avatar">
+                          {Icons.google && <Icons.google />}
+                        </div>
+                                                  <div className="reviewer-details">
+                          <h4 className="reviewer-name">{review.author || 'Anonymous'}</h4>
+                          <div className="review-rating">
+                            {renderStars(review.rating || 0)}
+                            <span className="rating-text">{review.rating || 0}/5</span>
+                          </div>
+                        </div>
+                        </div>
+                                              <div className="review-date">
+                        {Icons.clock && <Icons.clock />}
+                        <span>{review.date ? formatDate(review.date) : 'N/A'}</span>
+                      </div>
+                      </div>
+
+                      <p className="review-text">{review.content || 'No review content available'}</p>
+
+                      <div className="review-source">
+                        <span className="source-tag">Google Places</span>
+                        {review.helpful ? (
+                          <span className="helpful-tag">Helpful</span>
+                        ) : null}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="google-reviews-footer">
+                  <p className="last-updated">
+                    Last updated: {property.googlePlacesReviews.lastFetched ? formatDate(property.googlePlacesReviews.lastFetched) : 'N/A'}
+                  </p>
+                  <p className="google-note">
+                    Reviews sourced from Google Places API
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className={`info-card ${reviewsInView ? 'animate-fade-in' : ''}`}>
+                <div className="reviews-header">
+                  <h2 className="card-title">Google Places Reviews</h2>
+                </div>
+                <div className="no-google-reviews">
+                  {Icons.google && <Icons.google />}
+                  <p>No Google Places reviews available for this location.</p>
+                  <p className="google-note">Reviews will appear here when available from Google Places.</p>
+                </div>
+              </div>
+            )
+          ) : null}
         </div>
 
         {/* Booking Section */}
@@ -711,7 +803,7 @@ const PropertyDetails = () => {
 
       {/* Floating WhatsApp Button */}
       <div className="whatsapp-float animate-scale-in hover-scale">
-        <Icons.whatsapp />
+        {Icons.whatsapp && <Icons.whatsapp />}
       </div>
 
       {/* Image Viewer Modal */}

@@ -39,6 +39,7 @@ const mockProperties = [
       zipCode: "E1 6JX",
       latitude: 51.5236,
       longitude: -0.0747,
+      id: "ChIJn-EFMbccdkgRIrRKeGZVPGA" //fake id
     },
     images: [
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/23248-169459-wS5vep--AagT5QZvbmRTaoV0BoLRGcVFjMH-W93eMbZk-6537dca7a0633",
@@ -94,6 +95,7 @@ const mockProperties = [
       zipCode: "E14 5AB",
       latitude: 51.5054,
       longitude: -0.0235,
+      id: "ChIJL5kSeroCdkgRQUpeeoUh2AQ"
     },
     images: [
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/23248-169459-i9cuVnbKQ--R7MZS9-z6kOySdJLwGj54yqEUJvWWweKI-6537dce7a0c86",
@@ -148,6 +150,7 @@ const mockProperties = [
       zipCode: "TW10 5HP",
       latitude: 51.4613,
       longitude: -0.3034,
+      id: "ChIJtfPobDgMdkgRLn9KX6HdRKM"
     },
     images: [
       "https://hostaway-platform.s3.us-west-2.amazonaws.com/listing/23248-169459--lkfAiRs5OmhnalPDqd8JLfUJEqf7ZQBWH0vsfwVlM8-6537dccd39820",
