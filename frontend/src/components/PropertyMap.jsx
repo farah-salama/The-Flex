@@ -18,7 +18,7 @@ const PropertyMap = ({ latitude, longitude, address, listingName }) => {
 
       // Create script element
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY_HERE&libraries=maps,marker&v=beta`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=maps,marker&v=beta`;
       script.async = true;
       script.defer = true;
       
