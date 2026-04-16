@@ -2,6 +2,10 @@
 
 A lightweight, simple reviews management system for The Flex properties, featuring a manager dashboard and public review display.
 
+## 🌐 Live Deployment
+
+- App: [https://the-flex-a625c445faf3.herokuapp.com/](https://the-flex-a625c445faf3.herokuapp.com/)
+
 ## 🚀 Quick Start
 
 ### Prerequisites
